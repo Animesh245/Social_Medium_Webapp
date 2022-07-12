@@ -3,6 +3,21 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# ignore ALL files in ANY directory named target
+**/target
+
+#ignore all files in .idea folder
+**/.idea/**
+
+#ignore all files in .mvn files
+.mvn/
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+
+#ignore .iml files
+*.iml
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
