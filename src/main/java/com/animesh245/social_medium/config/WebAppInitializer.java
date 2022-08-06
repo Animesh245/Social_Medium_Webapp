@@ -1,4 +1,4 @@
-package com.spring.social_medium.config;
+package com.animesh245.social_medium.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
