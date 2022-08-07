@@ -19,7 +19,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:persistence-postgresql.properties")
+@PropertySource("classpath:persistence.properties")
 public class DbConfig {
 
     @Autowired
@@ -47,10 +47,10 @@ public class DbConfig {
     public DataSource dataSource()
     {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClass(env.getProperty("hibernate.connection.driver_class"));
-        dataSource.setJdbcUrl(env.getProperty("hibernate.connection.url"));
-        dataSource.setUser(env.getProperty("hibernate.username"));
-        dataSource.setPassword(env.getProperty("hibernate.password"));
+        dataSource.setDriverClass(env.getProperty("jdbc.driverClassName"));
+        dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+        dataSource.setUser(env.getProperty("jdbc.user"));
+        dataSource.setPassword(env.getProperty("jdbc.password"));
 
         return dataSource;
     }
