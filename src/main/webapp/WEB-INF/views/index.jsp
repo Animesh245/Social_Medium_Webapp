@@ -8,6 +8,6 @@
 <body>
 
 <!-- Page Container -->
-
+${msg}
 </body>
 </html>
