@@ -16,6 +16,14 @@ public class ServletConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
+
+        //CSS files
+        registry.addResourceHandler("/css/**") //relative paths
+                .addResourceLocations("/WEB-INF/resources/css/"); // actual path
+
+        //Image files
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("/WEB-INF/resources/images/", "file:///"+ Properties.WRITE_PATH);
     }
+
 }
