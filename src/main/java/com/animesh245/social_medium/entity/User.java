@@ -4,7 +4,6 @@ import com.animesh245.social_medium.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +51,5 @@ public class User
     private List<Status> statusList;
 
     @OneToMany(orphanRemoval = true,mappedBy = "user", cascade = CascadeType.ALL)
-
     private List<Status> postsLiked;
 }
