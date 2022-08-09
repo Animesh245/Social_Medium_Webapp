@@ -2,13 +2,13 @@ package com.animesh245.social_medium.service;
 
 import com.animesh245.social_medium.dto.requestDto.ReqLocation;
 import com.animesh245.social_medium.dto.responseDto.ResLocation;
-import com.animesh245.social_medium.entity.Location;
+
 
 import java.util.List;
 
 public interface LocationService 
 {
-    List<Location> getLocations();
+    List<ResLocation> getLocations();
 
     void saveLocation(ReqLocation location);
 

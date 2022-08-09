@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,9 +24,18 @@ public class LocationServiceImpl implements LocationService
     }
 
     @Override
-    public List<Location> getLocations()
+    public List<ResLocation> getLocations()
     {
-        return locationRepo.findAll();
+        List<Location> locationList = locationRepo.findAll();
+        List<ResLocation> resLocationList = new ArrayList<>();
+
+        for (Location location: locationList) {
+            ResLocation resLocation = new ResLocation();
+            BeanUtils.copyProperties(location,resLocation);
+            resLocationList.add(resLocation);
+        }
+
+        return resLocationList;
     }
 
     @Override
