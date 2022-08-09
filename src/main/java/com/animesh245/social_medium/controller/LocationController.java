@@ -17,17 +17,17 @@ public class LocationController
 {
     private final LocationService locationService;
 
-    public LocationController(LocationService locationService1) {
-        this.locationService = locationService1;
+    public LocationController(LocationService locationService) {
+        this.locationService = locationService;
     }
 
     @GetMapping("/list")
     public ModelAndView getLocationList()
     {
         ModelAndView modelAndView = new ModelAndView();
-        List<Location> locationList = locationService.getLocations();
-        modelAndView.addObject("locationList", locationList);
-//        modelAndView.setViewName("list");
+        List<ResLocation> resLocationList = locationService.getLocations();
+        modelAndView.addObject("resLocationList", resLocationList);
+        modelAndView.setViewName("admin/location/list");
         return modelAndView;
     }
 
@@ -37,37 +37,17 @@ public class LocationController
         ReqLocation reqLocation = new ReqLocation();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("reqLocation", reqLocation);
-//        modelAndView.setViewName("addLocation");
+        modelAndView.setViewName("admin/location/create");
         return modelAndView;
     }
 
     @PostMapping("/save")
-    public String saveLocation(@ModelAttribute("reqLocation") ReqLocation reqLocation)
+    public ModelAndView saveLocation(@ModelAttribute("reqLocation") ReqLocation reqLocation)
     {
         locationService.saveLocation(reqLocation);
 
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("redirect");
-        return "added successfully";
-    }
-
-    @GetMapping("/update/{id}")
-    public ModelAndView updateLocation(@PathVariable String id) throws Exception {
-        ResLocation resLocation = locationService.getLocation(id);
-
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("resLocation", resLocation);
-//        modelAndView.setViewName("redirect");
-        return modelAndView;
-    }
-
-    @PostMapping("/update")
-    public ModelAndView saveUpdates(@ModelAttribute("reqLocation") ReqLocation reqLocation)
-    {
-        locationService.updateLocation(reqLocation.getId().toString(),reqLocation);
-
-        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("redirect");
+        modelAndView.setViewName("redirect:/location/list" );
         return modelAndView;
     }
 
@@ -77,7 +57,29 @@ public class LocationController
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("resLocation", resLocation);
-//        modelAndView.setViewName("");
+        modelAndView.setViewName("admin/location/show");
+        return modelAndView;
+    }
+
+    @PostMapping("/update")
+    public ModelAndView saveUpdates(@ModelAttribute("resLocation") ResLocation resLocation)
+    {
+        ReqLocation reqLocation = new ReqLocation();
+        BeanUtils.copyProperties(resLocation,reqLocation);
+
+        locationService.updateLocation(resLocation.getId().toString(),reqLocation);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/location/list");
+        return modelAndView;
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView deleteLocation(@PathVariable String id) throws Exception {
+        locationService.deleteLocation(id);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/location/list");
         return modelAndView;
     }
 
