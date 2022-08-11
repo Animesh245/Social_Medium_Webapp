@@ -1,7 +1,6 @@
 package com.animesh245.social_medium.config;
 
 import com.mchange.v2.c3p0.DriverManagerDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -24,8 +23,11 @@ import java.util.Properties;
 @PropertySource("classpath:persistence.properties")
 public class DbConfig {
 
-    @Autowired
-    private Environment env;
+    private final Environment env;
+
+    public DbConfig(Environment env) {
+        this.env = env;
+    }
 
     //beans
 
