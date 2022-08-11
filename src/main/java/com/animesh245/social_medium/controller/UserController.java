@@ -1,6 +1,7 @@
 package com.animesh245.social_medium.controller;
 
-import com.animesh245.social_medium.entity.User;
+import com.animesh245.social_medium.dto.request.ReqUserDto;
+import com.animesh245.social_medium.dto.response.ResUserDto;
 import com.animesh245.social_medium.service.definition.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/users")
 public class UserController
 {
     //UserService Dependency Injection
@@ -21,34 +22,49 @@ public class UserController
     }
 
     @GetMapping(value = "/")
-    public String getUserList()
+    public ModelAndView getUserList()
     {
-        ModelAndView mv = new ModelAndView();
-        List<User> userList = IUserService.getUsers();
-        mv.addObject("userList", userList);
-        mv.setViewName("userList");
-        return "gets all users";
+        ModelAndView modelAndView = new ModelAndView();
+        List<ResUserDto> resUserDtoList = IUserService.getUsers();
+        modelAndView.addObject("resUserDtoList", resUserDtoList);
+        modelAndView.setViewName("user/List");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/{id}")
+    public ModelAndView getUser(@PathVariable("id") String id)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        var resUserDto = IUserService.getUser(id);
+        modelAndView.addObject("resUserDto", resUserDto);
+        modelAndView.setViewName("user/List");
+        return modelAndView;
     }
 
     @PostMapping(value = "/")
-    public String addUser(User user)
+    public ModelAndView addUser(ReqUserDto reqUserDto)
     {
-
-        IUserService.saveUser(user);
-        return "adds a user";
+        ModelAndView modelAndView = new ModelAndView();
+        IUserService.saveUser(reqUserDto);
+        modelAndView.setViewName("redirect:/users/");
+        return modelAndView;
     }
 
-    @PutMapping(value = "/")
-    public String updateUser(User user)
+    @PostMapping(value = "/{id}")
+    public ModelAndView updateUser(@PathVariable("id") String id, @RequestBody ReqUserDto reqUserDto)
     {
-        IUserService.updateUser(user);
-        return "user updated";
+        ModelAndView modelAndView = new ModelAndView();
+        IUserService.updateUser(id, reqUserDto);
+        modelAndView.setViewName("redirect:/users/");
+        return modelAndView;
     }
 
-    @DeleteMapping(value = "/{id}")
-    public String deleteUser(@PathVariable("id") Long id) throws Exception {
+    @GetMapping(value = "/{id}")
+    public ModelAndView deleteUser(@PathVariable("id") String  id) throws Exception
+    {
+        var modelAndView = new ModelAndView("redirect:/users/");
         IUserService.deleteUser(id);
-        return "user deleted";
+        return modelAndView;
     }
 
 }

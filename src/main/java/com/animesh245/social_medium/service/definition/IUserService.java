@@ -1,18 +1,19 @@
 package com.animesh245.social_medium.service.definition;
 
-import com.animesh245.social_medium.entity.User;
+import com.animesh245.social_medium.dto.request.ReqUserDto;
+import com.animesh245.social_medium.dto.response.ResUserDto;
 
 import java.util.List;
 
 public interface IUserService
 {
-    List<User> getUsers();
+    List<ResUserDto> getUsers();
 
-    void saveUser(User user);
+    void saveUser(ReqUserDto reqUserDto);
 
-    User getUser(Long id) throws Exception;
+    ResUserDto getUser(String id);
 
-    void updateUser(User user);
+    void updateUser(String id , ReqUserDto reqUserDto);
 
-    void deleteUser(Long id) throws Exception;
+    void deleteUser(String id) throws Exception;
 }
