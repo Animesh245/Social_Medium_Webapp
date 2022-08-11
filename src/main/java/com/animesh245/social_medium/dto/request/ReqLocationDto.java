@@ -1,11 +1,11 @@
-package com.animesh245.social_medium.dto.requestDto;
+package com.animesh245.social_medium.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ReqLocation
+public class ReqLocationDto
 {
     private String locationName;
 }

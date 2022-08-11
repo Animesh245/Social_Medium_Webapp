@@ -1,7 +1,7 @@
 package com.animesh245.social_medium.service;
 
-import com.animesh245.social_medium.dto.requestDto.ReqLocation;
-import com.animesh245.social_medium.dto.responseDto.ResLocation;
+import com.animesh245.social_medium.dto.request.ReqLocationDto;
+import com.animesh245.social_medium.dto.response.ResLocationDto;
 import com.animesh245.social_medium.entity.Location;
 import com.animesh245.social_medium.repository.LocationRepo;
 import org.springframework.beans.BeanUtils;
@@ -24,42 +24,42 @@ public class LocationServiceImpl implements LocationService
     }
 
     @Override
-    public List<ResLocation> getLocations()
+    public List<ResLocationDto> getLocations()
     {
         List<Location> locationList = locationRepo.findAll();
-        List<ResLocation> resLocationList = new ArrayList<>();
+        List<ResLocationDto> resLocationDtoList = new ArrayList<>();
 
         for (Location location: locationList) {
-            ResLocation resLocation = new ResLocation();
-            BeanUtils.copyProperties(location,resLocation);
-            resLocationList.add(resLocation);
+            ResLocationDto resLocationDto = new ResLocationDto();
+            BeanUtils.copyProperties(location, resLocationDto);
+            resLocationDtoList.add(resLocationDto);
         }
 
-        return resLocationList;
+        return resLocationDtoList;
     }
 
     @Override
-    public void saveLocation(ReqLocation reqLocation)
+    public void saveLocation(ReqLocationDto reqLocationDto)
     {
         Location location = new Location();
 
-        BeanUtils.copyProperties(reqLocation,location);
+        BeanUtils.copyProperties(reqLocationDto,location);
 
         locationRepo.save(location);
     }
 
     @Override
-    public ResLocation getLocation(String id) throws Exception
+    public ResLocationDto getLocation(String id) throws Exception
     {
         Location location = locationRepo.findById(Long.parseLong(id)).orElseThrow();
-        ResLocation resLocation = new ResLocation();
+        ResLocationDto resLocationDto = new ResLocationDto();
 
-        BeanUtils.copyProperties(location, resLocation);
-        return resLocation;
+        BeanUtils.copyProperties(location, resLocationDto);
+        return resLocationDto;
     }
 
     @Override
-    public void updateLocation(String id, ReqLocation location)
+    public void updateLocation(String id, ReqLocationDto location)
     {
         Location location1 = locationRepo.findById(Long.parseLong(id)).orElseThrow();
 

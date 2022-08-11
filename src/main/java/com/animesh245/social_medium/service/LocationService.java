@@ -1,20 +1,20 @@
 package com.animesh245.social_medium.service;
 
-import com.animesh245.social_medium.dto.requestDto.ReqLocation;
-import com.animesh245.social_medium.dto.responseDto.ResLocation;
+import com.animesh245.social_medium.dto.request.ReqLocationDto;
+import com.animesh245.social_medium.dto.response.ResLocationDto;
 
 
 import java.util.List;
 
 public interface LocationService 
 {
-    List<ResLocation> getLocations();
+    List<ResLocationDto> getLocations();
 
-    void saveLocation(ReqLocation location);
+    void saveLocation(ReqLocationDto location);
 
-    ResLocation getLocation(String id) throws Exception;
+    ResLocationDto getLocation(String id) throws Exception;
 
-    void updateLocation(String id, ReqLocation location);
+    void updateLocation(String id, ReqLocationDto location);
 
     void deleteLocation(String id) throws Exception;
 }
