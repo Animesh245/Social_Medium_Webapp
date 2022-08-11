@@ -2,7 +2,7 @@ package com.animesh245.social_medium.controller;
 
 import com.animesh245.social_medium.dto.request.ReqLocationDto;
 import com.animesh245.social_medium.dto.response.ResLocationDto;
-import com.animesh245.social_medium.service.LocationService;
+import com.animesh245.social_medium.service.definition.ILocationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,17 +13,17 @@ import java.util.List;
 @RequestMapping("/locations")
 public class LocationController
 {
-    private final LocationService locationService;
+    private final ILocationService ILocationService;
 
-    public LocationController(LocationService locationService) {
-        this.locationService = locationService;
+    public LocationController(ILocationService ILocationService) {
+        this.ILocationService = ILocationService;
     }
 
     @GetMapping("/")
     public ModelAndView getLocationList()
     {
         ModelAndView modelAndView = new ModelAndView();
-        List<ResLocationDto> resLocationDtoList = locationService.getLocations();
+        List<ResLocationDto> resLocationDtoList = ILocationService.getLocations();
         modelAndView.addObject("resLocationDtoList", resLocationDtoList);
         modelAndView.setViewName("admin/location/list");
         return modelAndView;
@@ -42,7 +42,7 @@ public class LocationController
     @PostMapping("/")
     public ModelAndView saveLocation(@ModelAttribute("reqLocation") ReqLocationDto reqLocationDto)
     {
-        locationService.saveLocation(reqLocationDto);
+        ILocationService.saveLocation(reqLocationDto);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/locations/" );
@@ -52,7 +52,7 @@ public class LocationController
     @GetMapping("/{id}")
     public ModelAndView getSingleLocation(@PathVariable String id) throws Exception
     {
-        ResLocationDto resLocationDto = locationService.getLocation(id);
+        ResLocationDto resLocationDto = ILocationService.getLocation(id);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("resLocation", resLocationDto);
@@ -78,7 +78,7 @@ public class LocationController
     @GetMapping("/delete/{id}")
     public ModelAndView deleteLocation(@PathVariable String id) throws Exception
     {
-        locationService.deleteLocation(id);
+        ILocationService.deleteLocation(id);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/locations/");

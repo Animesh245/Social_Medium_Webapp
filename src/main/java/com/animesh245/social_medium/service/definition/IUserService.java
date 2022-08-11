@@ -1,10 +1,10 @@
-package com.animesh245.social_medium.service;
+package com.animesh245.social_medium.service.definition;
 
 import com.animesh245.social_medium.entity.User;
 
 import java.util.List;
 
-public interface UserService
+public interface IUserService
 {
     List<User> getUsers();
 

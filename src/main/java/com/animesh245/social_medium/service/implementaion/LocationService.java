@@ -1,9 +1,10 @@
-package com.animesh245.social_medium.service;
+package com.animesh245.social_medium.service.implementaion;
 
 import com.animesh245.social_medium.dto.request.ReqLocationDto;
 import com.animesh245.social_medium.dto.response.ResLocationDto;
 import com.animesh245.social_medium.entity.Location;
 import com.animesh245.social_medium.repository.LocationRepo;
+import com.animesh245.social_medium.service.definition.ILocationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,12 @@ import java.util.List;
 
 @Service
 @Transactional
-public class LocationServiceImpl implements LocationService
+public class LocationService implements ILocationService
 {
     private final LocationRepo locationRepo;
 
 
-    public LocationServiceImpl(LocationRepo locationRepo1)
+    public LocationService(LocationRepo locationRepo1)
     {
         locationRepo=locationRepo1;
     }

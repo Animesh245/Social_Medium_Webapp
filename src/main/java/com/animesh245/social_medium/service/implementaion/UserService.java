@@ -1,7 +1,8 @@
-package com.animesh245.social_medium.service;
+package com.animesh245.social_medium.service.implementaion;
 
 import com.animesh245.social_medium.entity.User;
 import com.animesh245.social_medium.repository.UserRepo;
+import com.animesh245.social_medium.service.definition.IUserService;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -9,12 +10,12 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserService implements IUserService {
 
 
     private final UserRepo userRepo;
 
-    public UserServiceImpl(UserRepo userRepo1)
+    public UserService(UserRepo userRepo1)
     {
         this.userRepo = userRepo1;
     }
