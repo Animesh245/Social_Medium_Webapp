@@ -19,9 +19,9 @@ public class LocationService implements ILocationService
     private final LocationRepo locationRepo;
 
 
-    public LocationService(LocationRepo locationRepo1)
+    public LocationService(LocationRepo locationRepo)
     {
-        locationRepo=locationRepo1;
+        this.locationRepo=locationRepo;
     }
 
     @Override
@@ -60,13 +60,18 @@ public class LocationService implements ILocationService
     }
 
     @Override
-    public void updateLocation(String id, ReqLocationDto location)
-    {
-        Location location1 = locationRepo.findById(Long.parseLong(id)).orElseThrow();
-
-        BeanUtils.copyProperties(location,location1);
-        locationRepo.save(location1);
+    public Location getLocationByName(String locationName) throws Exception {
+        return locationRepo.findByName(locationName);
     }
+
+//    @Override
+//    public void updateLocation(String id, ReqLocationDto location)
+//    {
+//        Location location1 = locationRepo.findById(Long.parseLong(id)).orElseThrow();
+//
+//        BeanUtils.copyProperties(location,location1);
+//        locationRepo.save(location1);
+//    }
 
     @Override
     public void deleteLocation(String id) throws Exception
