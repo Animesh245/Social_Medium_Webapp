@@ -5,7 +5,7 @@ import com.animesh245.social_medium.dto.response.ResLocationDto;
 import com.animesh245.social_medium.entity.Location;
 import com.animesh245.social_medium.repository.LocationRepo;
 import com.animesh245.social_medium.service.definition.ILocationService;
-import org.springframework.beans.BeanUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -18,21 +18,23 @@ public class LocationService implements ILocationService
 {
     private final LocationRepo locationRepo;
 
+    private final ModelMapper modelMapper;
 
-    public LocationService(LocationRepo locationRepo)
+    public LocationService(LocationRepo locationRepo, ModelMapper modelMapper)
     {
         this.locationRepo=locationRepo;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public List<ResLocationDto> getLocations()
     {
         List<Location> locationList = locationRepo.findAll();
-        List<ResLocationDto> resLocationDtoList = new ArrayList<>();
+        var resLocationDtoList = new ArrayList<ResLocationDto>();
 
         for (Location location: locationList) {
-            ResLocationDto resLocationDto = new ResLocationDto();
-            BeanUtils.copyProperties(location, resLocationDto);
+            var resLocationDto = new ResLocationDto();
+            resLocationDto = modelMapper.map(location, ResLocationDto.class);
             resLocationDtoList.add(resLocationDto);
         }
 
@@ -42,26 +44,38 @@ public class LocationService implements ILocationService
     @Override
     public void saveLocation(ReqLocationDto reqLocationDto)
     {
-        Location location = new Location();
+        var location = new Location();
 
-        BeanUtils.copyProperties(reqLocationDto,location);
+        location = modelMapper.map(reqLocationDto,Location.class);
 
         locationRepo.save(location);
     }
 
     @Override
-    public ResLocationDto getLocation(String id) throws Exception
+    public ResLocationDto getLocation(String id)
     {
         Location location = locationRepo.findById(Long.parseLong(id)).orElseThrow();
-        ResLocationDto resLocationDto = new ResLocationDto();
+        var resLocationDto = new ResLocationDto();
 
-        BeanUtils.copyProperties(location, resLocationDto);
+        resLocationDto = modelMapper.map(location, ResLocationDto.class);
         return resLocationDto;
     }
 
     @Override
-    public Location getLocationByName(String locationName) throws Exception {
-        return locationRepo.findByName(locationName);
+    public Location getLocationByName(String locationName){
+//        Location location1 = locationRepo.findByLocationName(locationName).stream()
+//                .filter(location -> locationName.equals(location.getLocationName()))
+//                .findAny()
+//                .orElse(null);
+//        return location1;
+
+
+        var location = new Location();
+        List<Location> locationList = locationRepo.findByLocationName(locationName);
+        for (Location location1: locationList) {
+            location= location1;
+        }
+        return location;
     }
 
 //    @Override
@@ -74,7 +88,7 @@ public class LocationService implements ILocationService
 //    }
 
     @Override
-    public void deleteLocation(String id) throws Exception
+    public void deleteLocation(String id)
     {
         locationRepo.deleteById(Long.parseLong(id));
     }
