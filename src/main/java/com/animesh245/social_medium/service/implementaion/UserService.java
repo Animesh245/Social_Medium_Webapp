@@ -39,20 +39,13 @@ public class UserService implements IUserService
     public List<ResUserDto> getUsers()
     {
         var userList = userRepo.findAll();
-        var resUserDto = new ResUserDto();
         var resUserDtoList = new ArrayList<ResUserDto>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
 
         for (User user: userList)
         {
-            resUserDto = modelMapper.map(user,ResUserDto.class);
-            resUserDto.setId(user.getId().toString());
-            resUserDto.setDateOfBirth(dateFormat.format(user.getDateOfBirth()));
-            resUserDto.setRole(user.getRole().toString());
-            resUserDto.setLocationName(user.getLocation().getLocationName());
-//            resUserDto.setProfileImagePath(user.getAttachment().getAttachmentPath());
-            resUserDtoList.add(resUserDto);
+
+        var resUserDto = entityToDto(user);
+        resUserDtoList.add(resUserDto);
         }
         return resUserDtoList;
     }
@@ -60,17 +53,15 @@ public class UserService implements IUserService
     @Override
     public void saveUser(ReqUserDto reqUserDto) throws Exception
     {
-        Date date  = new SimpleDateFormat("yyyy-MM-dd").parse(reqUserDto.getDateOfBirth());
-        Location location = iLocationService.getLocationByName(reqUserDto.getLocationName());
-
-        var user = new User();
+//        var user = new User();
 
 //           var user = modelMapper.map(reqUserDto, User.class);
-            BeanUtils.copyProperties(reqUserDto, user);
-            user.setRole(Role.ROLE_USER);
-            user.setDateOfBirth(date);
-            user.setLocation(location);
-            userRepo.save(user);
+//            BeanUtils.copyProperties(reqUserDto, user);
+//            user.setRole(Role.ROLE_USER);
+//            user.setDateOfBirth(date);
+//            user.setLocation(location);
+        var user = dtoToEntity(reqUserDto);
+        userRepo.save(user);
         System.out.println(user);
     }
 
@@ -78,16 +69,13 @@ public class UserService implements IUserService
     public ResUserDto getUser(String id)
     {
         var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
-        var resUserDto = new ResUserDto();
-        resUserDto = modelMapper.map(user, ResUserDto.class);
-        return resUserDto;
+        return entityToDto(user);
     }
 
     @Override
-    public void updateUser(String id, ReqUserDto reqUserDto)
-    {
+    public void updateUser(String id, ReqUserDto reqUserDto) throws Exception {
         var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
-        modelMapper.map(reqUserDto, User.class);
+        user = dtoToEntity(reqUserDto);
         userRepo.save(user);
     }
 
@@ -95,5 +83,36 @@ public class UserService implements IUserService
     public void deleteUser(String id)
     {
         userRepo.deleteById(Long.parseLong(id));
+    }
+
+    //Dto to Entity Conversion
+    @Override
+    public User dtoToEntity(ReqUserDto reqUserDto) throws Exception
+    {
+        Date date  = new SimpleDateFormat("yyyy-MM-dd").parse(reqUserDto.getDateOfBirth());
+        Location location = iLocationService.getLocationByName(reqUserDto.getLocationName());
+
+//        var user = modelMapper.map(reqUserDto,User.class);
+        var user = new User();
+        BeanUtils.copyProperties(reqUserDto, user);
+        user.setDateOfBirth(date);
+        user.setRole(Role.ROLE_USER);
+        user.setLocation(location);
+        return user;
+    }
+
+    //Entity to Dto Conversion
+
+    @Override
+    public ResUserDto entityToDto(User user)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        var resUserDto = modelMapper.map(user,ResUserDto.class);
+        resUserDto.setId(user.getId().toString());
+        resUserDto.setDateOfBirth(dateFormat.format(user.getDateOfBirth()));
+        resUserDto.setRole(user.getRole().toString());
+        resUserDto.setLocationName(user.getLocation().getLocationName());
+        return resUserDto;
     }
 }
