@@ -26,6 +26,7 @@
     <th>Role</th>
     <th>Location</th>
     <th>Attachment Path</th>
+    <th>Actions</th>
   </tr>
 </thead>
   <tbody>
@@ -41,6 +42,11 @@
       <td>${user.role}</td>
       <td>${user.locationName}</td>
       <td>${user.profileImagePath}</td>
+      <td><section>
+        <button type="button" onclick="location='/users/${user.id}'" style="background-color: yellow">Update</button>
+        <button type="button" onclick="location='/users/delete/${user.id}'" style="background-color: darkred">Delete</button>
+      </section>
+      </td>
     </tr>
   </c:forEach>
   </tbody>

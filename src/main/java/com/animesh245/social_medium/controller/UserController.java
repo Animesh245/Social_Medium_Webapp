@@ -41,6 +41,14 @@ public class UserController
     {
         var mv = new ModelAndView();
         var resUserDto = iUserService.getUser(id);
+
+        var resLocationDtoList = iLocationService.getLocations();
+        var locationDtoList = new ArrayList<>();
+        for (ResLocationDto resLocationDto: resLocationDtoList)
+        {
+            locationDtoList.add(resLocationDto.getLocationName());
+        }
+        mv.addObject("locationDtoList",locationDtoList);
         mv.addObject("resUserDto", resUserDto);
         mv.setViewName("user/show");
         return mv;

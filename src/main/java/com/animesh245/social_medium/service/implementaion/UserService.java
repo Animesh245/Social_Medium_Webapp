@@ -53,13 +53,6 @@ public class UserService implements IUserService
     @Override
     public void saveUser(ReqUserDto reqUserDto) throws Exception
     {
-//        var user = new User();
-
-//           var user = modelMapper.map(reqUserDto, User.class);
-//            BeanUtils.copyProperties(reqUserDto, user);
-//            user.setRole(Role.ROLE_USER);
-//            user.setDateOfBirth(date);
-//            user.setLocation(location);
         var user = dtoToEntity(reqUserDto);
         userRepo.save(user);
         System.out.println(user);
@@ -73,10 +66,15 @@ public class UserService implements IUserService
     }
 
     @Override
-    public void updateUser(String id, ReqUserDto reqUserDto) throws Exception {
+    public void updateUser(String id, ReqUserDto reqUserDto) throws Exception
+    {
         var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
-        user = dtoToEntity(reqUserDto);
-        userRepo.save(user);
+        var user1 = dtoToEntity(reqUserDto);
+        user1.setId(user.getId());
+        if(userRepo.existsById(user.getId()))
+        {
+            userRepo.save(user1);
+        }
     }
 
     @Override

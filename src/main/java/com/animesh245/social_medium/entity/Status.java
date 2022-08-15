@@ -44,12 +44,12 @@ public class Status {
     @Column(name = "is_deleted")
     private Boolean is_deleted;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
     @JoinTable(name = "status_attachments", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "attachment_id", referencedColumnName = "id")})
     private List<Attachment> attachmentList;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = false)
     @JoinTable(name = "post_likes", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
     private List<User> liked_by;
 }

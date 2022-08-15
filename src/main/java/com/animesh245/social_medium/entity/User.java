@@ -47,9 +47,9 @@ public class User
     @JoinColumn(name = "attachment_id", referencedColumnName = "id")
     private Attachment attachment;
 
-    @OneToMany(orphanRemoval = true, mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = false, mappedBy = "user",cascade = CascadeType.ALL)
     private List<Status> statusList;
 
-    @OneToMany(orphanRemoval = true,mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = false,mappedBy = "user", cascade = CascadeType.ALL)
     private List<Status> postsLiked;
 }
