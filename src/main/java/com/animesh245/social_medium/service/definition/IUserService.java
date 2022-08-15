@@ -9,7 +9,7 @@ public interface IUserService
 {
     List<ResUserDto> getUsers();
 
-    void saveUser(ReqUserDto reqUserDto);
+    void saveUser(ReqUserDto reqUserDto) throws Exception;
 
     ResUserDto getUser(String id);
 
