@@ -42,7 +42,7 @@ public class UserController
         var mv = new ModelAndView();
         var resUserDto = iUserService.getUser(id);
         mv.addObject("resUserDto", resUserDto);
-        mv.setViewName("user/list");
+        mv.setViewName("user/show");
         return mv;
     }
 
@@ -73,7 +73,7 @@ public class UserController
     }
 
     @PostMapping(value = "/{id}")
-    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto)
+    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
     {
         var mv = new ModelAndView();
         iUserService.updateUser(id, reqUserDto);

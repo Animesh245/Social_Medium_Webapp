@@ -13,8 +13,9 @@
 </head>
 <body>
 
-<table>
+<table border="1">
 
+<thead>
   <tr>
     <th>Id</th>
     <th>Firstname</th>
@@ -26,7 +27,8 @@
     <th>Location</th>
     <th>Attachment Path</th>
   </tr>
-
+</thead>
+  <tbody>
   <jsp:useBean id="resUserDtoList" scope="request" type="java.util.List"/>
   <c:forEach items="${resUserDtoList}" var="user">
     <tr>
@@ -41,6 +43,8 @@
       <td>${user.profileImagePath}</td>
     </tr>
   </c:forEach>
+  </tbody>
+
 
 </table>
 
