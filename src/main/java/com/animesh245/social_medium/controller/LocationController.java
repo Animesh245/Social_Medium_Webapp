@@ -40,7 +40,7 @@ public class LocationController
     }
 
     @PostMapping("/")
-    public ModelAndView saveLocation(@ModelAttribute("reqLocation") ReqLocationDto reqLocationDto)
+    public ModelAndView saveLocation(@ModelAttribute ReqLocationDto reqLocationDto)
     {
         ILocationService.saveLocation(reqLocationDto);
 
