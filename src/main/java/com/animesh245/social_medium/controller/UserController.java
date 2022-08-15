@@ -1,12 +1,15 @@
 package com.animesh245.social_medium.controller;
 
 import com.animesh245.social_medium.dto.request.ReqUserDto;
+import com.animesh245.social_medium.dto.response.ResLocationDto;
 import com.animesh245.social_medium.dto.response.ResUserDto;
+import com.animesh245.social_medium.service.definition.ILocationService;
 import com.animesh245.social_medium.service.definition.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -14,57 +17,76 @@ import java.util.List;
 public class UserController
 {
     //UserService Dependency Injection
-    private final IUserService IUserService;
+    private final IUserService iUserService;
+    private final ILocationService iLocationService;
 
-    public UserController(IUserService IUserService1)
+    public UserController(IUserService iUserService, ILocationService iLocationService)
     {
-        this.IUserService = IUserService1;
+        this.iUserService = iUserService;
+        this.iLocationService = iLocationService;
     }
 
     @GetMapping(value = "/")
     public ModelAndView getUserList()
     {
-        ModelAndView modelAndView = new ModelAndView();
-        List<ResUserDto> resUserDtoList = IUserService.getUsers();
-        modelAndView.addObject("resUserDtoList", resUserDtoList);
-        modelAndView.setViewName("user/List");
-        return modelAndView;
+        var mv = new ModelAndView();
+        List<ResUserDto> resUserDtoList = iUserService.getUsers();
+        mv.addObject("resUserDtoList", resUserDtoList);
+        mv.setViewName("user/list");
+        return mv;
     }
 
     @GetMapping(value = "/{id}")
     public ModelAndView getUser(@PathVariable("id") String id)
     {
-        ModelAndView modelAndView = new ModelAndView();
-        var resUserDto = IUserService.getUser(id);
-        modelAndView.addObject("resUserDto", resUserDto);
-        modelAndView.setViewName("user/List");
-        return modelAndView;
+        var mv = new ModelAndView();
+        var resUserDto = iUserService.getUser(id);
+        mv.addObject("resUserDto", resUserDto);
+        mv.setViewName("user/list");
+        return mv;
+    }
+
+    @GetMapping(value = "/new")
+    public ModelAndView newUser()
+    {
+        var mv = new ModelAndView();
+        var reqUserDto = new ReqUserDto();
+        var resLocationDtoList = iLocationService.getLocations();
+        var locationDtoList = new ArrayList<>();
+        for (ResLocationDto resLocationDto: resLocationDtoList)
+        {
+            locationDtoList.add(resLocationDto.getLocationName());
+        }
+        mv.addObject("locationDtoList",locationDtoList);
+        mv.addObject("reqUserDto", reqUserDto);
+        mv.setViewName("user/usr");
+        return mv;
     }
 
     @PostMapping(value = "/")
-    public ModelAndView addUser(ReqUserDto reqUserDto)
+    public ModelAndView saveUser(ReqUserDto reqUserDto) throws Exception
     {
-        ModelAndView modelAndView = new ModelAndView();
-        IUserService.saveUser(reqUserDto);
-        modelAndView.setViewName("redirect:/users/");
-        return modelAndView;
+        var mv = new ModelAndView();
+        iUserService.saveUser(reqUserDto);
+        mv.setViewName("redirect:/users/");
+        return mv;
     }
 
     @PostMapping(value = "/{id}")
-    public ModelAndView updateUser(@PathVariable("id") String id, @RequestBody ReqUserDto reqUserDto)
+    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto)
     {
-        ModelAndView modelAndView = new ModelAndView();
-        IUserService.updateUser(id, reqUserDto);
-        modelAndView.setViewName("redirect:/users/");
-        return modelAndView;
+        var mv = new ModelAndView();
+        iUserService.updateUser(id, reqUserDto);
+        mv.setViewName("redirect:/users/");
+        return mv;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/delete/{id}")
     public ModelAndView deleteUser(@PathVariable("id") String  id) throws Exception
     {
-        var modelAndView = new ModelAndView("redirect:/users/");
-        IUserService.deleteUser(id);
-        return modelAndView;
+        var mv = new ModelAndView("redirect:/users/");
+        iUserService.deleteUser(id);
+        return mv;
     }
 
 }
