@@ -55,7 +55,7 @@ public class LocationController
         ResLocationDto resLocationDto = ILocationService.getLocation(id);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("resLocation", resLocationDto);
+        modelAndView.addObject("resLocationDto", resLocationDto);
         modelAndView.setViewName("admin/location/show");
         return modelAndView;
     }
@@ -75,7 +75,7 @@ public class LocationController
 //        return modelAndView;
 //    }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ModelAndView deleteLocation(@PathVariable String id) throws Exception
     {
         ILocationService.deleteLocation(id);
