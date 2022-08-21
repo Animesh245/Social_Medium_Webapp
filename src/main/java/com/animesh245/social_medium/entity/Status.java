@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "status_tbl")
+@Table(name = "statuses")
 public class Status {
 
     @Id
@@ -44,12 +44,12 @@ public class Status {
     @Column(name = "is_deleted")
     private Boolean is_deleted;
 
-    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "status_attachments", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "attachment_id", referencedColumnName = "id")})
     private List<Attachment> attachmentList;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "post_likes", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
     private List<User> liked_by;
 }

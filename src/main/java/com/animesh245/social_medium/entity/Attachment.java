@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "attachment_tbl")
+@Table(name = "attachments")
 public class Attachment
 {
     @Id

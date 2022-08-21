@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_tbl")
+@Table(name = "users")
 public class User
 {
     @Id
@@ -47,9 +47,9 @@ public class User
     @JoinColumn(name = "attachment_id", referencedColumnName = "id")
     private Attachment attachment;
 
-    @OneToMany(orphanRemoval = false, mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Status> statusList;
 
-    @OneToMany(orphanRemoval = false,mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Status> postsLiked;
 }
