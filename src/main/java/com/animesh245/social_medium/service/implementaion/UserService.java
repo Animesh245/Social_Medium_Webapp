@@ -14,9 +14,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -87,7 +86,7 @@ public class UserService implements IUserService
     @Override
     public User dtoToEntity(ReqUserDto reqUserDto) throws Exception
     {
-        Date date  = new SimpleDateFormat("yyyy-MM-dd").parse(reqUserDto.getDateOfBirth());
+        LocalDate date = LocalDate.parse(reqUserDto.getDateOfBirth());
         Location location = iLocationService.getLocationByName(reqUserDto.getLocationName());
 
 //        var user = modelMapper.map(reqUserDto,User.class);
@@ -104,11 +103,9 @@ public class UserService implements IUserService
     @Override
     public ResUserDto entityToDto(User user)
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         var resUserDto = modelMapper.map(user,ResUserDto.class);
         resUserDto.setId(user.getId().toString());
-        resUserDto.setDateOfBirth(dateFormat.format(user.getDateOfBirth()));
+        resUserDto.setDateOfBirth(user.getDateOfBirth().toString());
         resUserDto.setRole(user.getRole().toString());
         resUserDto.setLocationName(user.getLocation().getLocationName());
         return resUserDto;

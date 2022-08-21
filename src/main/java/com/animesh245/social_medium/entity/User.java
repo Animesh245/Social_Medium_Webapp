@@ -4,7 +4,7 @@ import com.animesh245.social_medium.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,7 +30,10 @@ public class User
     private String emailId;
 
     @Column(name = "dob")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
+
+//    @Column(name = "created_at")
+//    private LocalDateTime createdAt;
 
     @Column(name = "password")
     private String password;
