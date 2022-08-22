@@ -14,7 +14,6 @@ import com.animesh245.social_medium.service.definition.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -48,7 +47,6 @@ public class UserService implements IUserService
 
         for (User user: userList)
         {
-
         var resUserDto = entityToDto(user);
         resUserDtoList.add(resUserDto);
         }
@@ -56,9 +54,9 @@ public class UserService implements IUserService
     }
 
     @Override
-    public void saveUser(ReqUserDto reqUserDto, CommonsMultipartFile file) throws Exception
+    public void saveUser(ReqUserDto reqUserDto) throws Exception
     {
-        var user = dtoToEntity(reqUserDto, file);
+        var user = dtoToEntity(reqUserDto);
         userRepo.save(user);
         System.out.println(user);
     }
@@ -74,7 +72,7 @@ public class UserService implements IUserService
 //    public void updateUser(String id, ReqUserDto reqUserDto) throws Exception
 //    {
 //        var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
-//        var user1 = dtoToEntity(reqUserDto,);
+//        var user1 = dtoToEntity(reqUserDto);
 //        user1.setId(user.getId());
 //        if(userRepo.existsById(user.getId()))
 //        {
@@ -90,11 +88,11 @@ public class UserService implements IUserService
 
     //Dto to Entity Conversion
     @Override
-    public User dtoToEntity(ReqUserDto reqUserDto, CommonsMultipartFile file) throws Exception
+    public User dtoToEntity(ReqUserDto reqUserDto) throws Exception
     {
         LocalDate date = LocalDate.parse(reqUserDto.getDateOfBirth());
         Location location = iLocationService.getLocationByName(reqUserDto.getLocationName());
-        var attachment = iAttachmentService.saveAttachment(file, Properties.USER_FOLDER);
+        var attachment = iAttachmentService.saveAttachment(reqUserDto.getProfileImage(), Properties.USER_FOLDER);
 
 //        var user = modelMapper.map(reqUserDto,User.class);
         var user = new User();

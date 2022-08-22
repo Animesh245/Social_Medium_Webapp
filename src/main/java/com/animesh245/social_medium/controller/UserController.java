@@ -7,7 +7,6 @@ import com.animesh245.social_medium.service.definition.ILocationService;
 import com.animesh245.social_medium.service.definition.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ public class UserController
     //UserService Dependency Injection
     private final IUserService iUserService;
     private final ILocationService iLocationService;
-
 
     public UserController(IUserService iUserService, ILocationService iLocationService)
     {
@@ -52,6 +50,7 @@ public class UserController
         }
         mv.addObject("locationDtoList",locationDtoList);
         mv.addObject("resUserDto", resUserDto);
+        mv.addObject("reqUserDto", new ReqUserDto());
         mv.setViewName("user/show");
         return mv;
     }
@@ -74,11 +73,10 @@ public class UserController
     }
 
     @PostMapping(value = "/")
-    public ModelAndView saveUser(@ModelAttribute("reqUserDto") ReqUserDto reqUserDto, @RequestParam("profileImage") CommonsMultipartFile file) throws Exception
-//    public ModelAndView saveUser(@RequestBody ReqUserDto reqUserDto) throws Exception
+    public ModelAndView saveUser(@ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
     {
         var mv = new ModelAndView();
-        iUserService.saveUser(reqUserDto, file);
+        iUserService.saveUser(reqUserDto);
         mv.setViewName("redirect:/users/");
         return mv;
     }
@@ -92,7 +90,7 @@ public class UserController
 //        return mv;
 //    }
 
-    @DeleteMapping(value = "/{id}")
+    @GetMapping(value = "/deactivate/{id}")
     public ModelAndView deleteUser(@PathVariable("id") String  id) throws Exception
     {
         var mv = new ModelAndView("redirect:/users/");

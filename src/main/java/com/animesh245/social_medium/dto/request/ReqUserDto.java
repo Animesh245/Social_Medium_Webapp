@@ -2,6 +2,7 @@ package com.animesh245.social_medium.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Getter
 @Setter
@@ -13,6 +14,5 @@ public class ReqUserDto
     private String dateOfBirth;
     private String password;
     private String locationName;
-//    private String profileImage;
-//    private MultipartFile profileImage;
+    private CommonsMultipartFile profileImage;
 }
