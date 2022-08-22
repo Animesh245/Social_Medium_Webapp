@@ -15,7 +15,7 @@ public interface IUserService
 
     ResUserDto getUser(String id);
 
-//    void updateUser(String id , ReqUserDto reqUserDto) throws Exception;
+    void updateUser(String id , ReqUserDto reqUserDto) throws Exception;
 
     void deleteUser(String id) throws Exception;
 

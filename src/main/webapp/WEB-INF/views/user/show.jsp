@@ -14,40 +14,45 @@
 <body>
 
   <%--@elvariable id="resUserDto" type="com.animesh245.social_medium.dto.response.ResUserDto"--%>
-  <form:form modelAttribute="resUserDto" >
+  <%--@elvariable id="reqUserDto" type="com.animesh245.social_medium.dto.request.ReqUserDto"--%>
+  <form:form action="${pageContext.request.contextPath}/users/${resUserDto.id}" method="post" modelAttribute="reqUserDto" enctype="multipart/form-data">
     <label>Id</label>
-    <form:input path="id" placeholder="${resUserDto.id}" disabled="true"/> <br>
+    <input value="${resUserDto.id}" readonly="true"/><br>
 
     <label>Firstname</label>
-    <form:input path="firstName" placeholder="${resUserDto.firstName}"/> <br>
+    <form:input path="firstName" value="${resUserDto.firstName}"/> <br>
 
     <label>Lastname</label>
-    <form:input path="lastName" placeholder="${resUserDto.lastName}"/> <br>
+    <form:input path="lastName" value="${resUserDto.lastName}"/> <br>
 
     <label>Email</label>
-    <form:input path="emailId" placeholder="${resUserDto.emailId}"/><br>
+    <form:input path="emailId" value="${resUserDto.emailId}"/><br>
 
     <label>Date of birth</label>
-    <form:input path="dateOfBirth" placeholder="${resUserDto.dateOfBirth}"/><br>
+    <form:input type="date" path="dateOfBirth" value="${resUserDto.dateOfBirth}"/><br>
 
     <label>Password</label>
-    <form:input path="password" placeholder="${resUserDto.password}"/><br>
+    <form:input path="password" value="${resUserDto.password}"/><br>
 
     <label>Role</label>
-    <form:input path="role" placeholder="${resUserDto.role}"/><br>
+    <input path="role" value="${resUserDto.role}" readonly="true"/><br>
 
     <label>Location</label>
     <form:select path="locationName">
       <form:option value="${resUserDto.locationName}"/>
       <jsp:useBean id="locationDtoList" scope="request" type="java.util.List"/>
-      <form:options items="${locationDtoList}"/>
-    </form:select>
+      <form:options items="${locationDtoList}"/><br>
+    </form:select><br>
+
+    <img src="/images/${resUserDto.profileImagePath}" width="100" height="100"/><br>
 
     <label>Profile Photo</label>
-    <form:input path="profileImagePath" placeholder="${resUserDto.profileImagePath}"/><br>
+<%--    'name'- is very important as Dto is expecting a file with that name--%>
+    <input type="file" name="profileImage" accept="image/*"/><br>
 
-    <button type="submit" onclick="location='/users/${resUserDto.id}'" formmethod="post" style="background-color: greenyellow">Submit</button>
-    <button type="button" onclick="location='/users/'" formmethod="get">Back</button>
+
+    <form:button type="submit" style="background-color: greenyellow">Submit</form:button>
+    <button type="button" onclick="location='/users/'">Back</button>
   </form:form>
 </body>
 </html>

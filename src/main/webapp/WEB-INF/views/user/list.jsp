@@ -44,7 +44,7 @@
       <td>${user.profileImagePath}</td>
       <td><section>
         <button type="button" onclick="location='/users/${user.id}'" style="background-color: yellow">Update</button>
-        <button type="button" onclick="location='/users/delete/${user.id}'" style="background-color: darkred">Delete</button>
+        <button type="button" onclick="location='/users/deactivate/${user.id}'" style="background-color: darkred">Delete</button>
       </section>
       </td>
     </tr>

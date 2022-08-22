@@ -68,17 +68,17 @@ public class UserService implements IUserService
         return entityToDto(user);
     }
 
-//    @Override
-//    public void updateUser(String id, ReqUserDto reqUserDto) throws Exception
-//    {
-//        var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
-//        var user1 = dtoToEntity(reqUserDto);
-//        user1.setId(user.getId());
-//        if(userRepo.existsById(user.getId()))
-//        {
-//            userRepo.save(user1);
-//        }
-//    }
+    @Override
+    public void updateUser(String id, ReqUserDto reqUserDto) throws Exception
+    {
+        var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
+        var user1 = dtoToEntity(reqUserDto);
+        user1.setId(user.getId());
+        if(userRepo.existsById(user.getId()))
+        {
+            userRepo.save(user1);
+        }
+    }
 
     @Override
     public void deleteUser(String id)

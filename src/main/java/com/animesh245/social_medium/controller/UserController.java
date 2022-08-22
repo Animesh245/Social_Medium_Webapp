@@ -81,14 +81,14 @@ public class UserController
         return mv;
     }
 
-//    @PostMapping(value = "/{id}")
-//    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
-//    {
-//        var mv = new ModelAndView();
-//        iUserService.updateUser(id, reqUserDto);
-//        mv.setViewName("redirect:/users/");
-//        return mv;
-//    }
+    @PostMapping(value = "/{id}")
+    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
+    {
+        var mv = new ModelAndView();
+        iUserService.updateUser(id, reqUserDto);
+        mv.setViewName("redirect:/users/");
+        return mv;
+    }
 
     @GetMapping(value = "/deactivate/{id}")
     public ModelAndView deleteUser(@PathVariable("id") String  id) throws Exception
