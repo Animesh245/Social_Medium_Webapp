@@ -13,5 +13,6 @@ public class ReqUserDto
     private String dateOfBirth;
     private String password;
     private String locationName;
-    private String profileImagePath;
+//    private String profileImage;
+//    private MultipartFile profileImage;
 }
