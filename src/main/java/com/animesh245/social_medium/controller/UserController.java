@@ -7,6 +7,7 @@ import com.animesh245.social_medium.service.definition.ILocationService;
 import com.animesh245.social_medium.service.definition.IUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class UserController
     //UserService Dependency Injection
     private final IUserService iUserService;
     private final ILocationService iLocationService;
+
 
     public UserController(IUserService iUserService, ILocationService iLocationService)
     {
@@ -72,29 +74,29 @@ public class UserController
     }
 
     @PostMapping(value = "/")
-    public ModelAndView saveUser(ReqUserDto reqUserDto) throws Exception
+    public ModelAndView saveUser(@ModelAttribute("reqUserDto") ReqUserDto reqUserDto, @RequestParam("profileImage") CommonsMultipartFile file) throws Exception
+//    public ModelAndView saveUser(@RequestBody ReqUserDto reqUserDto) throws Exception
     {
         var mv = new ModelAndView();
-        iUserService.saveUser(reqUserDto);
+        iUserService.saveUser(reqUserDto, file);
         mv.setViewName("redirect:/users/");
         return mv;
     }
 
-    @PostMapping(value = "/{id}")
-    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
-    {
-        var mv = new ModelAndView();
-        iUserService.updateUser(id, reqUserDto);
-        mv.setViewName("redirect:/users/");
-        return mv;
-    }
+//    @PostMapping(value = "/{id}")
+//    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
+//    {
+//        var mv = new ModelAndView();
+//        iUserService.updateUser(id, reqUserDto);
+//        mv.setViewName("redirect:/users/");
+//        return mv;
+//    }
 
-    @GetMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     public ModelAndView deleteUser(@PathVariable("id") String  id) throws Exception
     {
         var mv = new ModelAndView("redirect:/users/");
         iUserService.deleteUser(id);
         return mv;
     }
-
 }

@@ -14,7 +14,7 @@
 </head>
 <body>
         <%--@elvariable id="reqUserDto" type="com.animesh245.social_medium.dto.request.ReqUserDto"--%>
-        <Form:form action="${pageContext.request.contextPath}/users/" modelAttribute="reqUserDto" method="post" >
+        <Form:form action="${pageContext.request.contextPath}/users/" modelAttribute="reqUserDto" method="post" enctype="multipart/form-data">
             <label>Firstname</label>
             <Form:input path="firstName"/><br>
 
@@ -38,7 +38,7 @@
             </Form:select><br>
 
             <label>Profile Photo</label>
-            <input type="file" accept="image/*" name="profileImage"/><br>
+            <input type="file" name="profileImage" accept="image/*" /><br>
 
             <Form:button type="submit">Submit</Form:button>
         </Form:form>
