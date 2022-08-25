@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,9 +72,17 @@ public class AttachmentService implements IAttachmentService
     }
 
     @Override
-    public void insertInBulks(List<Attachment> attachments)
+    public List<Attachment> insertInBulks(CommonsMultipartFile[] files)
     {
-        attachmentRepo.saveAll(attachments);
+        String path = Properties.STATUS_FOLDER;
+        List<Attachment> attachmentList = new ArrayList<>();
+
+        for (CommonsMultipartFile file: files)
+        {
+           var attached = saveAttachment(file,path);
+           attachmentList.add(attached);
+        }
+        return attachmentList;
     }
 
 

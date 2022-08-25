@@ -12,7 +12,7 @@ public interface IAttachmentService
 
     Attachment saveAttachment(CommonsMultipartFile file, String path) throws IOException;
 
-    void insertInBulks(List<Attachment> attachments);
+    List<Attachment> insertInBulks(CommonsMultipartFile[] attachments);
 
 
 }
