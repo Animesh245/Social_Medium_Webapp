@@ -91,10 +91,10 @@ public class UserController
     }
 
     @GetMapping(value = "/deactivate/{id}")
-    public ModelAndView deleteUser(@PathVariable("id") String  id) throws Exception
+    public ModelAndView deactivateUser(@PathVariable("id") String  id)
     {
         var mv = new ModelAndView("redirect:/users/");
-        iUserService.deleteUser(id);
+        iUserService.deactivateUser(id);
         return mv;
     }
 }

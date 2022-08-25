@@ -5,6 +5,7 @@ import com.animesh245.social_medium.dto.request.ReqUserDto;
 import com.animesh245.social_medium.dto.response.ResUserDto;
 import com.animesh245.social_medium.entity.Location;
 import com.animesh245.social_medium.entity.User;
+import com.animesh245.social_medium.enums.AccountStatus;
 import com.animesh245.social_medium.enums.Role;
 import com.animesh245.social_medium.exception.NotFoundException;
 import com.animesh245.social_medium.repository.UserRepo;
@@ -86,6 +87,18 @@ public class UserService implements IUserService
         userRepo.deleteById(Long.parseLong(id));
     }
 
+    @Override
+    public void deactivateUser(String id)
+    {
+        var user = userRepo.findById(Long.parseLong(id)).orElseThrow(() -> new NotFoundException("User not found"));
+
+        if (user.getAccountStatus() == AccountStatus.ACTIVE)
+        {
+            user.setAccountStatus(AccountStatus.DEACTIVATED);
+            userRepo.save(user);
+        }
+    }
+
     //Dto to Entity Conversion
     @Override
     public User dtoToEntity(ReqUserDto reqUserDto) throws Exception
@@ -99,6 +112,7 @@ public class UserService implements IUserService
         BeanUtils.copyProperties(reqUserDto, user);
         user.setDateOfBirth(date);
         user.setRole(Role.ROLE_USER);
+        user.setAccountStatus(AccountStatus.ACTIVE);
         user.setAttachment(attachment);
         user.setLocation(location);
         return user;
@@ -109,12 +123,16 @@ public class UserService implements IUserService
     @Override
     public ResUserDto entityToDto(User user)
     {
-        var resUserDto = modelMapper.map(user,ResUserDto.class);
-        resUserDto.setId(user.getId().toString());
-        resUserDto.setDateOfBirth(user.getDateOfBirth().toString());
-        resUserDto.setRole(user.getRole().toString());
-        resUserDto.setLocationName(user.getLocation().getLocationName());
-        resUserDto.setProfileImagePath(user.getAttachment().getAttachmentPath());
-        return resUserDto;
+        if (user.getAccountStatus() == AccountStatus.ACTIVE)
+        {
+            var resUserDto = modelMapper.map(user,ResUserDto.class);
+            resUserDto.setId(user.getId().toString());
+            resUserDto.setDateOfBirth(user.getDateOfBirth().toString());
+            resUserDto.setRole(user.getRole().toString());
+            resUserDto.setLocationName(user.getLocation().getLocationName());
+            resUserDto.setProfileImagePath(user.getAttachment().getAttachmentPath());
+            return resUserDto;
+        }
+        return null;
     }
 }

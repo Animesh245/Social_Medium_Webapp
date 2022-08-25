@@ -1,5 +1,6 @@
 package com.animesh245.social_medium.entity;
 
+import com.animesh245.social_medium.enums.AccountStatus;
 import com.animesh245.social_medium.enums.Role;
 import lombok.*;
 
@@ -42,11 +43,15 @@ public class User
     @Column(name = "role")
     private Role role;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private AccountStatus accountStatus;
+
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY)
     private Location location;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "attachment_id", referencedColumnName = "id")
     private Attachment attachment;
 
