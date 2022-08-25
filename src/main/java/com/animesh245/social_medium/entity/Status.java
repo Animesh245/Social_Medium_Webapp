@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -23,15 +23,15 @@ public class Status {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "status_text")
-    private String status_text;
+    @Column(name = "status_text", columnDefinition = "TEXT")
+    private String statusText;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     private User user;
 
     @Column(name = "created_date")
-    private Date created_date;
+    private LocalDateTime createdDate;
 
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @OneToOne(fetch = FetchType.LAZY)
@@ -42,7 +42,7 @@ public class Status {
     private Privacy privacy;
 
     @Column(name = "is_deleted")
-    private Boolean is_deleted;
+    private Boolean isDeleted;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "status_attachments", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},
@@ -51,5 +51,5 @@ public class Status {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "post_likes", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    private List<User> liked_by;
+    private List<User> likedBy;
 }

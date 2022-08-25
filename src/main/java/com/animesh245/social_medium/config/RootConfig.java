@@ -8,8 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import java.io.IOException;
-
 @Configuration
 @ComponentScan(basePackages = {"com.animesh245.social_medium.repository","com.animesh245.social_medium.service"})
 public class RootConfig
@@ -26,10 +24,9 @@ public class RootConfig
     }
 
     @Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver() throws IOException
+    public CommonsMultipartResolver multipartResolver()
     {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        multipartResolver.setUploadTempDir(Properties.TEMP);
         multipartResolver.setMaxUploadSize(Properties.MAX_UPLOAD_SIZE);
         return multipartResolver;
     }

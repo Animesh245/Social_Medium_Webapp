@@ -19,6 +19,8 @@ public interface IUserService
 
     void deleteUser(String id) throws Exception;
 
+    void deactivateUser(String id);
+
     User dtoToEntity(ReqUserDto reqUserDto) throws Exception;
 
     ResUserDto entityToDto(User user);
