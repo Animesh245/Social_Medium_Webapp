@@ -8,8 +8,7 @@ import lombok.Setter;
 public class ResUserDto
 {
     private String id;
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String emailId;
     private String dateOfBirth;
     private String password;

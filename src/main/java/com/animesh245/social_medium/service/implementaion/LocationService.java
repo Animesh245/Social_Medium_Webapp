@@ -62,20 +62,9 @@ public class LocationService implements ILocationService
     }
 
     @Override
-    public Location getLocationByName(String locationName){
-//        Location location1 = locationRepo.findByLocationName(locationName).stream()
-//                .filter(location -> locationName.equals(location.getLocationName()))
-//                .findAny()
-//                .orElse(null);
-//        return location1;
-
-
-        var location = new Location();
-        List<Location> locationList = locationRepo.findByLocationName(locationName);
-        for (Location location1: locationList) {
-            location= location1;
-        }
-        return location;
+    public Location getLocationByName(String locationName)
+    {
+        return locationRepo.findByLocationName(locationName);
     }
 
 //    @Override

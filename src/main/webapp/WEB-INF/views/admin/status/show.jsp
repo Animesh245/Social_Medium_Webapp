@@ -19,11 +19,9 @@
     <label>Id</label>
     <input value="${resUserDto.id}" readonly="true"/><br>
 
-    <label>Firstname</label>
-    <form:input path="firstName" value="${resUserDto.firstName}"/> <br>
+    <label>Full name</label>
+    <form:input path="fullName" value="${resUserDto.fullName}"/> <br>
 
-    <label>Lastname</label>
-    <form:input path="lastName" value="${resUserDto.lastName}"/> <br>
 
     <label>Email</label>
     <form:input path="emailId" value="${resUserDto.emailId}"/><br>

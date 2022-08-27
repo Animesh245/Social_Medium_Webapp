@@ -48,7 +48,7 @@ public class StatusController
         return mv;
     }
 
-    @GetMapping("/new")
+    @GetMapping("/create")
     public ModelAndView newStatus()
     {
         var resLocationDtoList = iLocationService.getLocations();

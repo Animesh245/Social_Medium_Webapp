@@ -113,7 +113,7 @@ public class StatusService implements IStatusService
         List<String> userNames = new ArrayList<>();
         for (User user: users)
         {
-            String name = user.getFirstName() +" "+ user.getLastName();
+            String name = user.getFullName();
             userNames.add(name);
         }
         if(!status.getIsDeleted())

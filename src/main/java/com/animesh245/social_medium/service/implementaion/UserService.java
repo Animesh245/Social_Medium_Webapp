@@ -14,6 +14,7 @@ import com.animesh245.social_medium.service.definition.ILocationService;
 import com.animesh245.social_medium.service.definition.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,17 +28,17 @@ public class UserService implements IUserService
 {
     private final UserRepo userRepo;
     private final ILocationService iLocationService;
-
     private final IAttachmentService iAttachmentService;
-
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepo, ILocationService iLocationService, IAttachmentService iAttachmentService, ModelMapper modelMapper)
+    public UserService(UserRepo userRepo, ILocationService iLocationService, IAttachmentService iAttachmentService, ModelMapper modelMapper, PasswordEncoder passwordEncoder)
     {
         this.userRepo = userRepo;
         this.iLocationService = iLocationService;
         this.iAttachmentService = iAttachmentService;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -112,6 +113,7 @@ public class UserService implements IUserService
         BeanUtils.copyProperties(reqUserDto, user);
         user.setDateOfBirth(date);
         user.setRole(Role.ROLE_USER);
+        user.setPassword(passwordEncoder.encode(reqUserDto.getPassword()));
         user.setAccountStatus(AccountStatus.ACTIVE);
         user.setAttachment(attachment);
         user.setLocation(location);
@@ -129,6 +131,7 @@ public class UserService implements IUserService
             resUserDto.setId(user.getId().toString());
             resUserDto.setDateOfBirth(user.getDateOfBirth().toString());
             resUserDto.setRole(user.getRole().toString());
+            resUserDto.setPassword(user.getPassword());
             resUserDto.setLocationName(user.getLocation().getLocationName());
             resUserDto.setProfileImagePath(user.getAttachment().getAttachmentPath());
             return resUserDto;

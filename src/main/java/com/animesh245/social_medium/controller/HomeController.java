@@ -13,8 +13,7 @@ public class HomeController
     public ModelAndView home()
     {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("msg","It's working");
-        mv.setViewName("index");
+        mv.setViewName("main/index");
         return mv;
     }
 

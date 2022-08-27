@@ -8,8 +8,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @Setter
 public class ReqUserDto
 {
-    private String firstName;
-    private String lastName;
+    private String fullName;
     private String emailId;
     private String dateOfBirth;
     private String password;

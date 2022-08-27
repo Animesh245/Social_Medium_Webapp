@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,13 +48,14 @@ public class AuthController
             user.setPassword(passwordEncoder.encode("1234"));
             user.setAccountStatus(AccountStatus.ACTIVE);
             user.setDateOfBirth(LocalDate.parse("1990-09-09"));
+            userRepo.save(user);
         }
 
         if(userRepo.findByEmailId("admin@ex.com") == null)
         {
             var admin = new User();
             admin.setId(1L);
-            admin.setFullName("User");
+            admin.setFullName("Admin");
             admin.setUserName("admin123");
             admin.setEmailId("admin@ex.com");
             admin.setRole(Role.ROLE_ADMIN);
@@ -63,15 +63,18 @@ public class AuthController
             admin.setPassword(passwordEncoder.encode("1234"));
             admin.setAccountStatus(AccountStatus.ACTIVE);
             admin.setDateOfBirth(LocalDate.parse("1990-09-09"));
+            userRepo.save(admin);
         }
     }
 
     @GetMapping("/login")
-    public String login(Model model, @RequestParam(name="error", required = false) String error)
+    public ModelAndView login(@RequestParam(name="error", required = false) String error)
     {
+        var mv = new ModelAndView();
         generateUsers();
-        model.addAttribute("error", error);
-        return "main/navbar";
+        mv.addObject("error", error);
+        mv.setViewName("auth/login");
+        return mv;
     }
 
     @GetMapping("/logout")

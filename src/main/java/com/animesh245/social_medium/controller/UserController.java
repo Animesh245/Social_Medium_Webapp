@@ -32,7 +32,7 @@ public class UserController
         var mv = new ModelAndView();
         List<ResUserDto> resUserDtoList = iUserService.getUsers();
         mv.addObject("resUserDtoList", resUserDtoList);
-        mv.setViewName("user/list");
+        mv.setViewName("admin/user/list");
         return mv;
     }
 
@@ -51,11 +51,11 @@ public class UserController
         mv.addObject("locationDtoList",locationDtoList);
         mv.addObject("resUserDto", resUserDto);
         mv.addObject("reqUserDto", new ReqUserDto());
-        mv.setViewName("user/show");
+        mv.setViewName("admin/user/show");
         return mv;
     }
 
-    @GetMapping(value = "/new")
+    @GetMapping(value = "/create")
     public ModelAndView newUser()
     {
         var mv = new ModelAndView();
@@ -68,7 +68,7 @@ public class UserController
         }
         mv.addObject("locationDtoList",locationDtoList);
         mv.addObject("reqUserDto", reqUserDto);
-        mv.setViewName("user/usr");
+        mv.setViewName("auth/register");
         return mv;
     }
 
