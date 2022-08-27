@@ -15,11 +15,8 @@
 <body>
         <%--@elvariable id="reqUserDto" type="com.animesh245.social_medium.dto.request.ReqUserDto"--%>
         <Form:form action="${pageContext.request.contextPath}/users/" modelAttribute="reqUserDto" method="post" enctype="multipart/form-data">
-            <label>Firstname</label>
-            <Form:input path="firstName"/><br>
-
-            <label>Lastname</label>
-            <Form:input path="lastName"/><br>
+            <label>Full name</label>
+            <Form:input path="fullName"/><br>
 
             <label>Email</label>
             <Form:input path="emailId"/><br>
