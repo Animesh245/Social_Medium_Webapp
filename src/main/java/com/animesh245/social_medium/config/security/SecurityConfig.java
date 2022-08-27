@@ -1,6 +1,9 @@
 package com.animesh245.social_medium.config.security;
 
 import com.animesh245.social_medium.service.implementaion.UsrDetails;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,17 +28,19 @@ public class SecurityConfig
         this.authSuccessHandler = authSuccessHandler;
     }
 
-    public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception
+    @Autowired
+    public void configure(@NotNull AuthenticationManagerBuilder managerBuilder) throws Exception
     {
         managerBuilder.userDetailsService(usrDetails).passwordEncoder(passwordEncoder);
     }
 
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception
     {
         httpSecurity.authorizeHttpRequests()
                 .antMatchers("/image/**", "/css/**", "/js/**", "/vendor/**").permitAll()
-                .antMatchers("/auth/login/**", "/users/new", "/users/").permitAll()
-                .antMatchers("/locations/create","/statuses/delete/**", "/users/delete/**").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/auth/login/**", "/users/create", "/users/").permitAll()
+                .antMatchers("/locations/**","/statuses/delete/**", "/users/delete/**").hasAnyAuthority("ROLE_ADMIN")
                 .antMatchers("/locations/list").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/statuses/create","/statuses/update/**", "/statuses/delete/**", "/users/update/**").hasAnyAuthority("ROLE_USER")
                 .anyRequest().authenticated()
