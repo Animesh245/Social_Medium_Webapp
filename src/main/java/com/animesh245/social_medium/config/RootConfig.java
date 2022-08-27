@@ -1,5 +1,6 @@
 package com.animesh245.social_medium.config;
 
+import com.animesh245.social_medium.config.security.AuthSuccessHandler;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,6 +16,12 @@ public class RootConfig
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthSuccessHandler authSuccessHandler()
+    {
+        return new AuthSuccessHandler();
     }
 
     @Bean
