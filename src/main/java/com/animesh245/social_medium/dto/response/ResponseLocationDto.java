@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResLocationDto
+public class ResponseLocationDto
 {
     private Long id;
     private String locationName;

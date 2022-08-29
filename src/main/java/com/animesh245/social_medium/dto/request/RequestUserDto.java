@@ -6,7 +6,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @Getter
 @Setter
-public class ReqUserDto
+public class RequestUserDto
 {
     private String fullName;
     private String emailId;

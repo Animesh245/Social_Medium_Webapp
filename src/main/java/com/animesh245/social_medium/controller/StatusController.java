@@ -1,7 +1,7 @@
 package com.animesh245.social_medium.controller;
 
 import com.animesh245.social_medium.dto.request.RequestStatusDto;
-import com.animesh245.social_medium.dto.response.ResLocationDto;
+import com.animesh245.social_medium.dto.response.ResponseLocationDto;
 import com.animesh245.social_medium.dto.response.ResponseStatusDto;
 import com.animesh245.social_medium.enums.Privacy;
 import com.animesh245.social_medium.service.definition.ILocationService;
@@ -28,7 +28,7 @@ public class StatusController
     }
 
     @GetMapping("/")
-    public ModelAndView getAllStatus()
+    public ModelAndView getAllStatus() throws Exception
     {
         List<ResponseStatusDto> responseStatusDtoList = iStatusService.getStatuses();
 
@@ -39,7 +39,7 @@ public class StatusController
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getStatus(@PathVariable("id") String id)
+    public ModelAndView getStatus(@PathVariable("id") String id) throws Exception
     {
         var responseStatusDto = iStatusService.getStatus(id);
         var mv = new ModelAndView();
@@ -53,9 +53,9 @@ public class StatusController
     {
         var resLocationDtoList = iLocationService.getLocations();
         var locationDtoList = new ArrayList<>();
-        for (ResLocationDto resLocationDto: resLocationDtoList)
+        for (ResponseLocationDto responseLocationDto : resLocationDtoList)
         {
-            locationDtoList.add(resLocationDto.getLocationName());
+            locationDtoList.add(responseLocationDto.getLocationName());
         }
 
         var mv = new ModelAndView();
@@ -71,7 +71,7 @@ public class StatusController
     {
         iStatusService.saveStatus(requestStatusDto);
         var mv = new ModelAndView();
-        mv.setViewName("redirect:/statuses/");
+        mv.setViewName("redirect:/");
         return mv;
     }
 

@@ -13,9 +13,9 @@
 </head>
 <body>
 
-  <%--@elvariable id="resUserDto" type="com.animesh245.social_medium.dto.response.ResUserDto"--%>
-  <%--@elvariable id="reqUserDto" type="com.animesh245.social_medium.dto.request.ReqUserDto"--%>
-  <form:form action="${pageContext.request.contextPath}/users/${resUserDto.id}" method="post" modelAttribute="reqUserDto" enctype="multipart/form-data">
+<%--@elvariable id="resUserDto" type="com.animesh245.social_medium.dto.response.ResponseUserDto"--%>
+  <%--@elvariable id="requestUserDto" type="com.animesh245.social_medium.dto.request.RequestUserDto"--%>
+  <form:form action="${pageContext.request.contextPath}/users/${resUserDto.id}" method="post" modelAttribute="requestUserDto" enctype="multipart/form-data">
     <label>Id</label>
     <input value="${resUserDto.id}" readonly="true"/><br>
 

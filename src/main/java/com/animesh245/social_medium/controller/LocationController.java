@@ -1,7 +1,7 @@
 package com.animesh245.social_medium.controller;
 
-import com.animesh245.social_medium.dto.request.ReqLocationDto;
-import com.animesh245.social_medium.dto.response.ResLocationDto;
+import com.animesh245.social_medium.dto.request.RequestLocationDto;
+import com.animesh245.social_medium.dto.response.ResponseLocationDto;
 import com.animesh245.social_medium.service.definition.ILocationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +23,8 @@ public class LocationController
     public ModelAndView getLocationList()
     {
         ModelAndView modelAndView = new ModelAndView();
-        List<ResLocationDto> resLocationDtoList = ILocationService.getLocations();
-        modelAndView.addObject("resLocationDtoList", resLocationDtoList);
+        List<ResponseLocationDto> responseLocationDtoList = ILocationService.getLocations();
+        modelAndView.addObject("resLocationDtoList", responseLocationDtoList);
         modelAndView.setViewName("admin/location/list");
         return modelAndView;
     }
@@ -32,17 +32,17 @@ public class LocationController
     @GetMapping("/add")
     public ModelAndView addLocation()
     {
-        ReqLocationDto reqLocationDto = new ReqLocationDto();
+        RequestLocationDto requestLocationDto = new RequestLocationDto();
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("reqLocationDto", reqLocationDto);
+        modelAndView.addObject("reqLocationDto", requestLocationDto);
         modelAndView.setViewName("admin/location/create");
         return modelAndView;
     }
 
     @PostMapping("/")
-    public ModelAndView saveLocation(@ModelAttribute ReqLocationDto reqLocationDto)
+    public ModelAndView saveLocation(@ModelAttribute RequestLocationDto requestLocationDto)
     {
-        ILocationService.saveLocation(reqLocationDto);
+        ILocationService.saveLocation(requestLocationDto);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/locations/" );
@@ -52,10 +52,10 @@ public class LocationController
     @GetMapping("/{id}")
     public ModelAndView getSingleLocation(@PathVariable String id) throws Exception
     {
-        ResLocationDto resLocationDto = ILocationService.getLocation(id);
+        ResponseLocationDto responseLocationDto = ILocationService.getLocation(id);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("resLocationDto", resLocationDto);
+        modelAndView.addObject("resLocationDto", responseLocationDto);
         modelAndView.setViewName("admin/location/show");
         return modelAndView;
     }

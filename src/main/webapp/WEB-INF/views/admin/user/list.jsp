@@ -30,8 +30,8 @@
   </tr>
 </thead>
   <tbody>
-  <jsp:useBean id="resUserDtoList" scope="request" type="java.util.List"/>
-  <c:forEach items="${resUserDtoList}" var="user">
+  <jsp:useBean id="responseUserDtoList" scope="request" type="java.util.List"/>
+  <c:forEach items="${responseUserDtoList}" var="user">
     <tr>
       <td>${user.id}</td>
       <td>${user.firstName}</td>

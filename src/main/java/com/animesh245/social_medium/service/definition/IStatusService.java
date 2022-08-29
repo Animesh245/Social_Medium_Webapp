@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface IStatusService 
 {
-    List<ResponseStatusDto> getStatuses();
+    List<ResponseStatusDto> getStatuses() throws Exception;
 
     void saveStatus(RequestStatusDto requestStatusDto) throws Exception;
 
 
-    ResponseStatusDto getStatus(String id);
+    ResponseStatusDto getStatus(String id) throws Exception;
 
     void updateStatus(String id , RequestStatusDto requestStatusDto) throws Exception;
 
@@ -23,5 +23,5 @@ public interface IStatusService
 
     Status dtoToEntity(RequestStatusDto requestStatusDto) throws Exception;
 
-    ResponseStatusDto entityToDto(Status status);
+    ResponseStatusDto entityToDto(Status status) throws Exception;
 }

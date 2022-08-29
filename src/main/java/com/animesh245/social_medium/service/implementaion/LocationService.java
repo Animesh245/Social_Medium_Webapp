@@ -1,7 +1,7 @@
 package com.animesh245.social_medium.service.implementaion;
 
-import com.animesh245.social_medium.dto.request.ReqLocationDto;
-import com.animesh245.social_medium.dto.response.ResLocationDto;
+import com.animesh245.social_medium.dto.request.RequestLocationDto;
+import com.animesh245.social_medium.dto.response.ResponseLocationDto;
 import com.animesh245.social_medium.entity.Location;
 import com.animesh245.social_medium.repository.LocationRepo;
 import com.animesh245.social_medium.service.definition.ILocationService;
@@ -27,14 +27,14 @@ public class LocationService implements ILocationService
     }
 
     @Override
-    public List<ResLocationDto> getLocations()
+    public List<ResponseLocationDto> getLocations()
     {
         List<Location> locationList = locationRepo.findAll();
-        var resLocationDtoList = new ArrayList<ResLocationDto>();
+        var resLocationDtoList = new ArrayList<ResponseLocationDto>();
 
         for (Location location: locationList) {
-            var resLocationDto = new ResLocationDto();
-            resLocationDto = modelMapper.map(location, ResLocationDto.class);
+            var resLocationDto = new ResponseLocationDto();
+            resLocationDto = modelMapper.map(location, ResponseLocationDto.class);
             resLocationDtoList.add(resLocationDto);
         }
 
@@ -42,22 +42,22 @@ public class LocationService implements ILocationService
     }
 
     @Override
-    public void saveLocation(ReqLocationDto reqLocationDto)
+    public void saveLocation(RequestLocationDto requestLocationDto)
     {
         var location = new Location();
 
-        location = modelMapper.map(reqLocationDto,Location.class);
+        location = modelMapper.map(requestLocationDto,Location.class);
 
         locationRepo.save(location);
     }
 
     @Override
-    public ResLocationDto getLocation(String id)
+    public ResponseLocationDto getLocation(String id)
     {
         Location location = locationRepo.findById(Long.parseLong(id)).orElseThrow();
-        var resLocationDto = new ResLocationDto();
+        var resLocationDto = new ResponseLocationDto();
 
-        resLocationDto = modelMapper.map(location, ResLocationDto.class);
+        resLocationDto = modelMapper.map(location, ResponseLocationDto.class);
         return resLocationDto;
     }
 

@@ -1,7 +1,7 @@
 package com.animesh245.social_medium.controller;
 
 import com.animesh245.social_medium.dto.request.RequestStatusDto;
-import com.animesh245.social_medium.dto.response.ResLocationDto;
+import com.animesh245.social_medium.dto.response.ResponseLocationDto;
 import com.animesh245.social_medium.enums.Privacy;
 import com.animesh245.social_medium.repository.UserRepo;
 import com.animesh245.social_medium.service.definition.ILocationService;
@@ -38,9 +38,9 @@ public class HomeController
 
         var resLocationDtoList = iLocationService.getLocations();
         var locationDtoList = new ArrayList<>();
-        for (ResLocationDto resLocationDto: resLocationDtoList)
+        for (ResponseLocationDto responseLocationDto : resLocationDtoList)
         {
-            locationDtoList.add(resLocationDto.getLocationName());
+            locationDtoList.add(responseLocationDto.getLocationName());
         }
 
         ModelAndView mv = new ModelAndView();

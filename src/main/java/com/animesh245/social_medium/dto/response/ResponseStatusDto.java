@@ -15,6 +15,7 @@ public class ResponseStatusDto
     private String locationName;
     private String privacy;
     private String userName;
+    private String profileImagePath;
     private List<String> attachmentPathList;
     private List<String> likedByUser;
 }

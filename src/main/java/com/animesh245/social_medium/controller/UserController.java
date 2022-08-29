@@ -1,8 +1,8 @@
 package com.animesh245.social_medium.controller;
 
-import com.animesh245.social_medium.dto.request.ReqUserDto;
-import com.animesh245.social_medium.dto.response.ResLocationDto;
-import com.animesh245.social_medium.dto.response.ResUserDto;
+import com.animesh245.social_medium.dto.request.RequestUserDto;
+import com.animesh245.social_medium.dto.response.ResponseLocationDto;
+import com.animesh245.social_medium.dto.response.ResponseUserDto;
 import com.animesh245.social_medium.service.definition.ILocationService;
 import com.animesh245.social_medium.service.definition.IUserService;
 import org.springframework.stereotype.Controller;
@@ -27,31 +27,22 @@ public class UserController
     }
 
     @GetMapping(value = "/")
-    public ModelAndView getUserList()
+    public ModelAndView getUserList() throws Exception
     {
         var mv = new ModelAndView();
-        List<ResUserDto> resUserDtoList = iUserService.getUsers();
-        mv.addObject("resUserDtoList", resUserDtoList);
+        List<ResponseUserDto> responseUserDtoList = iUserService.getUsers();
+        mv.addObject("resUserDtoList", responseUserDtoList);
         mv.setViewName("admin/user/list");
         return mv;
     }
 
     @GetMapping(value = "/{id}")
-    public ModelAndView getUser(@PathVariable("id") String id)
+    public ModelAndView getUser(@PathVariable("id") String id) throws Exception
     {
         var mv = new ModelAndView();
         var resUserDto = iUserService.getUser(id);
-
-        var resLocationDtoList = iLocationService.getLocations();
-        var locationDtoList = new ArrayList<>();
-        for (ResLocationDto resLocationDto: resLocationDtoList)
-        {
-            locationDtoList.add(resLocationDto.getLocationName());
-        }
-        mv.addObject("locationDtoList",locationDtoList);
         mv.addObject("resUserDto", resUserDto);
-        mv.addObject("reqUserDto", new ReqUserDto());
-        mv.setViewName("admin/user/show");
+        mv.setViewName("main/profile");
         return mv;
     }
 
@@ -59,12 +50,12 @@ public class UserController
     public ModelAndView newUser()
     {
         var mv = new ModelAndView();
-        var reqUserDto = new ReqUserDto();
+        var reqUserDto = new RequestUserDto();
         var resLocationDtoList = iLocationService.getLocations();
         var locationDtoList = new ArrayList<>();
-        for (ResLocationDto resLocationDto: resLocationDtoList)
+        for (ResponseLocationDto responseLocationDto : resLocationDtoList)
         {
-            locationDtoList.add(resLocationDto.getLocationName());
+            locationDtoList.add(responseLocationDto.getLocationName());
         }
         mv.addObject("locationDtoList",locationDtoList);
         mv.addObject("reqUserDto", reqUserDto);
@@ -73,19 +64,19 @@ public class UserController
     }
 
     @PostMapping(value = "/")
-    public ModelAndView saveUser(@ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
+    public ModelAndView saveUser(@ModelAttribute("reqUserDto") RequestUserDto requestUserDto) throws Exception
     {
         var mv = new ModelAndView();
-        iUserService.saveUser(reqUserDto);
+        iUserService.saveUser(requestUserDto);
         mv.setViewName("redirect:/users/");
         return mv;
     }
 
     @PostMapping(value = "/{id}")
-    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") ReqUserDto reqUserDto) throws Exception
+    public ModelAndView updateUser(@PathVariable("id") String id, @ModelAttribute("reqUserDto") RequestUserDto requestUserDto) throws Exception
     {
         var mv = new ModelAndView();
-        iUserService.updateUser(id, reqUserDto);
+        iUserService.updateUser(id, requestUserDto);
         mv.setViewName("redirect:/users/");
         return mv;
     }
