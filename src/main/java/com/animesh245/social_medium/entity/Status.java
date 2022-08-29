@@ -34,7 +34,7 @@ public class Status {
     private LocalDateTime createdDate;
 
     @JoinColumn(name = "location_id", referencedColumnName = "id")
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true,cascade = CascadeType.ALL)
     private Location location;
 
     @Enumerated(EnumType.STRING)
@@ -44,7 +44,7 @@ public class Status {
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinTable(name = "status_attachments", joinColumns = {@JoinColumn(name = "status_id",referencedColumnName = "id")},
     inverseJoinColumns = {@JoinColumn(name = "attachment_id", referencedColumnName = "id")})
     private List<Attachment> attachmentList;

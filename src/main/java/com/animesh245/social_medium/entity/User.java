@@ -58,10 +58,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "attachment_id", referencedColumnName = "id")
     private Attachment attachment;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = CascadeType.ALL)
     private List<Status> statusList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "user", cascade = CascadeType.ALL)
     private List<Status> postsLiked;
 
     @Override
