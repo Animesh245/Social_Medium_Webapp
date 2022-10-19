@@ -42,6 +42,7 @@ Frontend
 - Click on the run button and the project will be opened in the default browser.
 ## Demo
 
-Insert gif or link to demo
+![social_medium](https://user-images.githubusercontent.com/64697529/196737898-e49be22c-9e17-41ce-b1bb-09213d0e1da7.gif)
+
 
 
