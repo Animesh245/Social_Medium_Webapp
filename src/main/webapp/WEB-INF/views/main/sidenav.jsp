@@ -54,22 +54,8 @@
 
 
     <div class="w3-col m2 w3-card w3-light-gray " style="width:12%; height: fit-content;position:sticky; top: 36px; margin: 2%;margin-top:50px" >
-
-        <div class="w3-container w3-center ">
-          <h5>Friend Request</h5>
-          <img src="./wp3092250.jpg" alt="Avatar" style="width:40%;"><h5>John Doe</h5>
-    
-          <div class="w3-row w3-opacity">
-            <div class="w3-half">
-            <button class="w3-button w3-block w3-green w3-section"><i class="fa fa-check"></i></button>
-            </div>
-            <div class="w3-half">
-            <button class="w3-button w3-block w3-red w3-section" ><i class="fa fa-remove"></i></button>
-          </div>
-          </div>
-        </div>
-    
-      </div> 
+        <jsp:include page="suggestedList.jsp"/>
+    </div>
 
     <!-- <div class="w3-sidebar w3-bar-block w3-light-gray" style="width:20%; height: fit-content;right:0;top: 36px;margin: 2%;">
         

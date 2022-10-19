@@ -10,39 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <!-- <div class="w3-col m4" style="margin-top: 4%;">
-        <div class="w3-row-padding">
-            <div class="w3-col m12" style="margin-left: 50%; width: 76%;"> -->
     <div class="w3-card w3-round w3-white" style="margin-top:50px">
         <div class="w3-container w3-padding" >
-            <jsp:include page="../admin/status/create.jsp"/>
-            <%--@elvariable id="requestStatusDto" type="com.animesh245.social_medium.dto.request.RequestStatusDto"--%>
-<%--            <Form:form action="${pageContext.request.contextPath}/statuses/" modelAttribute="requestStatusDto" method="post" enctype="multipart/form-data">--%>
-<%--                <h6 class="w3-opacity">How was your day</h6>--%>
-<%--                <Form:input path="statusText"/><br>--%>
-
-<%--                <label>Privacy</label>--%>
-<%--                <Form:select path="privacy">--%>
-<%--                    <Form:option value="Select Privacy"/>--%>
-<%--                    <jsp:useBean id="privacyList" scope="request" type="java.util.List"/>--%>
-<%--                    <Form:options items="${privacyList}"/>--%>
-<%--                </Form:select>--%>
-
-<%--                <br>--%>
-<%--                <label>Location</label>--%>
-<%--                <Form:select path="locationName">--%>
-<%--                    <Form:option value="Select Location"/>--%>
-<%--                    <jsp:useBean id="locationDtoList" scope="request" type="java.util.List"/>--%>
-<%--                    <Form:options items="${locationDtoList}"/>--%>
-<%--                </Form:select><br>--%>
-
-<%--                <label>Attachments</label>--%>
-<%--                <input type="file" name="fileList" accept="image/*" multiple="multiple"/><br>--%>
-
-<%--                <Form:button type="submit"><i class="fa fa-pencil"></i> Post</Form:button>--%>
-<%--            </Form:form>--%>
-
-<%--            <button type="button" class="w3-button w3-green"><i class="fa fa-pencil"></i> &nbsp;Post</button>--%>
+            <jsp:include page="status.jsp"/>
         </div>
     </div>
 
